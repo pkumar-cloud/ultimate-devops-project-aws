@@ -2,6 +2,10 @@
 
 In this lecture we will use the `docker compose` which is installed as part of `docker`.
 
-Just go to the directory of cloned repo and run `docker compose up`.
+Just go to the directory of cloned repo and run `docker compose up` or `docker compose up -d`
 
-Video of the lecture is self explanatory.
+Resize FS on ubuntu:
+sudo apt install cloud-guest-utils
+sudo growpart /dev/xvda 1
+lsblk, df-h
+sudo resize2fs /dev/xvda1, df -h #resize the file sys
