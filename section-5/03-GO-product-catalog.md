@@ -53,11 +53,45 @@ This stage creates a **minimal runtime environment** for running the compiled Go
    - `PRODUCT_CATALOG_PORT` is set to `8088`, defining the port the service will listen on.  
 
 5. **Define the Entry Point**  
-   - The container executes `./product-catalog`, starting the Go microservice.  
+   - The container executes `./product-catalog`, starting the Go microservice.
+```
+docker build -t pndrns/product-catalog:v1 .
+docker images
+docker run pndrns/product-catalog:v1
+```
 
 ---
 
 ## **Summary**  
 - The **first stage** compiles the Go microservice efficiently with caching mechanisms.  
 - The **second stage** runs the built application in a **lightweight, production-ready environment**.  
-- Using **multi-stage builds** ensures that the final image contains only what is needed, making it **small, secure, and optimized** for production.  
+- Using **multi-stage builds** ensures that the final image contains only what is needed, making it **small, secure, and optimized** for production.
+
+## Simple Dockerfile (or refer from source-code)
+```
+FROM golang:1.22-alpine AS builder
+
+WORKDIR /usr/src/app/
+
+# Copy the source code
+COPY . .
+
+# Download the dependencies listed in "go.mod"
+RUN go mod download
+
+RUN go build -o product-catalog .
+
+####################################
+
+FROM alpine AS release
+
+WORKDIR /usr/src/app/
+
+COPY ./products/ ./products/  #needed as service loads the products when started
+COPY --from=builder /usr/src/app/product-catalog/ ./
+
+ENV PRODUCT_CATALOG_PORT=8088
+
+ENTRYPOINT [ "./product-catalog" ]
+
+```
