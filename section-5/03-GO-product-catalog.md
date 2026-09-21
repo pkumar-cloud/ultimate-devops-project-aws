@@ -1,3 +1,9 @@
+# **Run locally**
+```
+sudo apt install goland-go
+go build -o product-catalog .  #download all the dependencies, compiles the Go application and outputs an executable binary as "product-catalog". "go.mod" have all the dependencies defined.
+./product-catalog
+```
 # Containerization of a Go based microservice
 
 ## **Stage 1: Build Stage (Builder Image)**  
