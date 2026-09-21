@@ -9,6 +9,7 @@ docker init
 - docker.io, quay.io, ECR, ACR, GHCR
 ```
 docker login <registry> #Authenticate with container registry
+docker tag <registry>/<user>/<repository>:<Image-tag>
 docker push <registry>/<user>/<repository>:<Image-tag>
  - docker push docker.io/pndrns/adservice:v1 OR docker push pndrns/adservice:v1
 
