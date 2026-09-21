@@ -34,9 +34,34 @@ This stage is responsible for **setting up the environment and installing depend
    - The application is executed with `python recommendation_server.py`.  
    - This runs the Python microservice when the container starts.  
 
+```
+docker build -t pndrns/recommendationservice:v1 .
+docker images
+docker run pndrns/recommendationservice:v1
+```
 ---
 
 ## **Summary**  
 - The **Dockerfile** sets up a **lightweight Python environment** with all necessary dependencies.  
 - The **OpenTelemetry auto-instrumentation** is installed for monitoring.  
-- The final image runs the **Python microservice efficiently** with minimal overhead.   
+- The final image runs the **Python microservice efficiently** with minimal overhead.
+
+## **Simple Dockerfile (or refer from source-code) - Multi Stage Docker Build**
+```
+FROM python:3.12-slim-bookworm AS base
+
+WORKDIR /usr/src/app
+
+COPY requirements.txt ./
+
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
+
+COPY . .
+
+RUN opentelemetry-bootstrap -a install  #optional, needed only for OTEL
+
+ENV RECOMMENDATION_PORT 1010 #optional
+
+ENTRYPOINT ["python", "recommendation_server.py"]
+```
