@@ -1,4 +1,16 @@
-# Containerization of a Java based microservice
+# 1. Run service locally
+```
+sudo apt install openjdk-21-jre-headless
+cd ultimate-devops-project-demo/src/ad
+chmod +x ./gradlew #Execute permission for gradle wrapper
+./gradlew installDist # 1. Starts gradle daemon/server 2. install all dependencies 3. Compile 4. build the artifact/executables in "build" directory
+export AD_PORT=8080
+export FEATURE_FLAG_GRPC_SERVICE_ADDR=featureflagservice:50053
+./build/install/opentelemetry-demo-ad/bin/Ad #Ad is executable file, runs .jar file from "build" directory
+
+```
+
+# 2. Containerization of a Java based microservice
 
 - Here are the steps that are involved in containerizing our Java based microservice. Same steps are also followed in the video.
 
@@ -52,7 +64,13 @@ This stage creates a **lightweight, optimized runtime image** for running the ap
 
 5. **Define the Entry Point**  
    - The application is executed with `./build/install/opentelemetry-demo-ad/bin/Ad`.  
-   - This is the compiled and installed binary from the Gradle `installDist` task.  
+   - This is the compiled and installed binary from the Gradle `installDist` task.
+  
+```
+docker build -t pndrns/adservice:v1 .
+docker images
+docker run pndrns/adservice:v1
+```
 
 ---
 
@@ -60,3 +78,35 @@ This stage creates a **lightweight, optimized runtime image** for running the ap
 - The **first stage** builds the application using Gradle.  
 - The **second stage** runs the built application inside a **lightweight JRE-based image**.  
 - Using **multi-stage builds** ensures that the final image only contains what is necessary for execution, making it **smaller, more secure, and optimized** for production use.  
+
+## **Simple Dockerfile (or refer from source-code) - Multi Stage Docker Build** 
+```
+FROM eclipse-temurin:21-jdk AS builder
+
+WORKDIR /usr/src/app/
+
+#Download all the dependencies
+COPY gradlew* settings.gradle* build.gradle .
+COPY ./gradle ./gradle
+
+RUN chmod +x ./gradlew
+RUN ./gradlew
+RUN ./gradlew downloadRepos
+
+COPY . .
+COPY ./pb ./proto #Copy proto file (pb) to proto in docker image
+RUN chmod +x ./gradlew
+RUN ./gradlew installDist -PprotoSourceDir=./proto #build the binary
+
+#####################################################
+
+FROM eclipse-temurin:21-jre
+
+WORKDIR /usr/src/app/
+
+COPY --from=builder /usr/src/app/ ./
+
+ENV AD_PORT 9099
+
+ENTRYPOINT ["./build/install/opentelemetry-demo-ad/bin/Ad"]
+```
