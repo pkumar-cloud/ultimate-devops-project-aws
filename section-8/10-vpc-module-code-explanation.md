@@ -1,3 +1,7 @@
+# Notes:
+- create eks-install/modules, eks & vpc #write the reusable code for eks & vpc.
+- Each folder contains main.tf (actual code), variables.tf (variables to pass to main.tf), output.tf (directs what to print after execution). In these subfolders main.tf starts directly with "resources" since it is reusabled. Engineer will create "eks-install/main.tf" to call these modules and mention "provider".
+
 # Code explanation for VPC module
 
 ## **1. Creating a VPC**
