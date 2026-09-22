@@ -7,7 +7,9 @@ Terraform stores its statefile locally by default, which can lead to several iss
 3. **Concurrency Issues**: Multiple users running Terraform commands simultaneously can cause conflicts and unintended changes.
 4. **Security Concerns**: Local statefiles may contain sensitive information, making them vulnerable to unauthorized access.
 
-To overcome these challenges, Terraform provides remote state management using an **Amazon S3 bucket** for storage and **DynamoDB** for state locking.
+To overcome these challenges, Terraform provides remote state management using:
+- Remote Backend: an **Amazon S3 bucket** for storing the tf.state file and 
+- **DynamoDB** for state locking.
 
 ## **Managing Terraform Statefile using S3 and DynamoDB**
 
