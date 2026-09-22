@@ -1,8 +1,12 @@
 # Run the project Locally
 
 In this lecture we will use the `docker compose` which is installed as part of `docker`.
-
-Just go to the directory of cloned repo and run `docker compose up` or `docker compose up -d`
+```
+cd ultimate-devops-project-demo
+docker compose up or docker compose up -d (do not show logs, run containers in background)
+docker compose down #Delete eberything (services, volumes and network)
+http://<publicIP>:8080
+```
 
 # Resize FS on ubuntu:
 `sudo apt install cloud-guest-utils
