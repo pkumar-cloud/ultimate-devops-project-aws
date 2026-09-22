@@ -7,7 +7,7 @@ Kubernetes services provide a way to expose applications running on a set of Pod
 ### Description
 - The default service type.
 - Exposes the service on an internal IP in the cluster.
-- Makes the service only reachable from within the cluster.
+- Makes the service only reachable from within the cluster using **CNI (Container Network Interface)**.
 
 ### Use Case
 - Suitable for internal services that do not need to be exposed to the outside world.
@@ -21,7 +21,7 @@ Kubernetes services provide a way to expose applications running on a set of Pod
 
 ### Description
 - Exposes the service on each Node's IP at a static port.
-- Makes the service accessible from outside the cluster using `<NodeIP>:<NodePort>`.
+- Makes the service accessible from outside the cluster using **`<NodeIP>:<NodePort>`**.
 
 ### Use Case
 - Useful for exposing services for external access without a load balancer.
@@ -35,7 +35,7 @@ Kubernetes services provide a way to expose applications running on a set of Pod
 
 ### Description
 - Exposes the service externally using a cloud provider's load balancer.
-- Automatically creates an external IP address that forwards traffic to the service.
+- API server talks to **CCM(Cloud Controller Manager)** -> AWS API -> and automatically creates a Load balancer (external IP address) that forwards traffic to the service.
 
 ### Use Case
 - Ideal for production environments where high availability and scalability are required.
