@@ -12,4 +12,7 @@
 
 ### Container Orchestration Platform
 - **Kubernetes** is designed for **complex, multi-host environments** and large-scale applications.  
-- It automates the deployment, scaling, service discovery, HA, LB and management of containers across a **cluster of machines**.  
+- It automates the deployment, scaling, service discovery, HA, LB and management of containers across a **cluster of machines**.
+- Steps to onboard Kubernetes:
+  - Local: minikube, kind, k3d, kubeadm
+  - Managed (EKS, AKS, GKE, Openshift) 
