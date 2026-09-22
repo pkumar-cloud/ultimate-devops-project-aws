@@ -1,3 +1,11 @@
+# Setup S3 bucket and DynamoDB
+```
+cd eks-install/backend
+terraform init
+terraform plan #dry run using main.tf
+terraform apply
+
+```
 # Code explanation for S3 bucket and DynamoDB terraform file
 
 ## **1. AWS Provider Configuration**
