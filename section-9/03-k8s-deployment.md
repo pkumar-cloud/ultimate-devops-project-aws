@@ -44,7 +44,7 @@ spec:
 ```
 
 ### Self-Healing
-Kubernetes ensures that the desired state of the application is maintained. If a pod is deleted or fails, the Deployment controller (replicaset) will automatically create a new pod to replace it, ensuring that the specified number of replicas is always running.
+Kubernetes ensures that the desired state of the application is maintained. If a pod is deleted or fails, the Deployment controller creates itermediate object **replicaset** and replicaset controller will automatically create a new pod to replace it, ensuring that the specified number of replicas is always running.
 
 ```yaml
 kubectl delete pod <pod-name>
