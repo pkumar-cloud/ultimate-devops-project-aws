@@ -7,7 +7,7 @@ Terraform follows a well-defined lifecycle for managing infrastructure as code. 
 - Downloads required provider plugins and modules.
 - Configures the backend for storing state files.
 
-## 2. **Planning (`terraform plan`)**
+## 2. **Planning/Dry run (`terraform plan`)**
 - Analyzes the existing state and the desired configuration.
 - Shows a preview of what actions Terraform will take.
 - Helps in reviewing changes before applying them.
