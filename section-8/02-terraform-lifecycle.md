@@ -1,6 +1,11 @@
 # Terraform Lifecycle
 
-Terraform follows a well-defined lifecycle for managing infrastructure as code. The lifecycle consists of several stages that ensure resources are created, updated, or destroyed in a controlled manner.
+- Terraform follows a well-defined lifecycle for managing infrastructure as code. The lifecycle consists of several stages that ensure resources are created, updated, or destroyed in a controlled manner.
+- Any TF file contains main four objects:
+  - provider 
+  - resource
+  - Variable.tf #variables to pass to above code blocks
+  - Output.tf #define what to output after running terraform apply.
 
 ## 1. **Initialization (`terraform init`)**
 - Prepares the working directory for Terraform operations.
