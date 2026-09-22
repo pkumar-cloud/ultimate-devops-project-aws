@@ -8,7 +8,7 @@ Terraform stores its statefile locally by default, which can lead to several iss
 4. **Security Concerns**: Local statefiles may contain sensitive information, making them vulnerable to unauthorized access.
 
 To overcome these challenges, Terraform provides remote state management using:
-- Remote Backend: an **Amazon S3 bucket** for storing the tf.state file and 
+- Remote Backend: an **Amazon S3 bucket** for storing the "terraform.tfstate" file and 
 - **DynamoDB** for state locking.
 
 ## **Managing Terraform Statefile using S3 and DynamoDB**
