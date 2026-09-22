@@ -15,10 +15,14 @@ aws configure
 You will be prompted to enter your AWS Access Key ID, Secret Access Key, region, and output format.
 
 ## Step 3: Update kubeconfig with EKS Cluster
-
-Use the following command to update your kubeconfig file with the EKS cluster:
+- kubectl depends upon kubeconfig file, holds list of clusters you want to connect to.
+- Context tells which cluster kubectl currently is connected to. 
+- Use the following command to update your kubeconfig file with the EKS cluster:
 
 ```sh
+kubectl config view #List all the contexts/clusters
+kubectl config current-context #List which cluster kubectl is connected to
+kubectl config use-context <ContextName> #Connect to mentioned context/cluster
 aws eks --region <your-region> update-kubeconfig --name <your-cluster-name>
 ```
 
