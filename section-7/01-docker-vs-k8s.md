@@ -1,6 +1,6 @@
 # Docker vs Kubernetes
 
-## **1. Containers Are Ephemeral**  
+## **1. Containers Are Ephemeral (short lived)**  
 - Docker runs containers, but **containers are temporary** and can stop anytime.  
 - If a container crashes, Docker does not restart it automatically.  
 
@@ -10,7 +10,7 @@
 
 ---
 
-## **2. Issues Related to Scaling and Healing**  
+## **2. Issues Related to Scaling, HA and Healing**  
 - In Docker, you **manually create and remove** containers when demand changes.  
 - If a container crashes, it must be restarted manually.  
 
@@ -32,5 +32,5 @@
 
 ## **Summary**  
 - **Docker runs containers**, but they are temporary and need manual management.  
-- **Kubernetes automates** scaling, healing, and service discovery.  
+- **Kubernetes automates** scaling, HA, healing, and service discovery.  
 - With Kubernetes, applications are **more reliable, scalable, and self-healing**. 🚀  
