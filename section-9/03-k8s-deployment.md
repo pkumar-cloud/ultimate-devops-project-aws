@@ -15,7 +15,7 @@ A Kubernetes Deployment is a resource object in Kubernetes that provides declara
 ### Docker Container
 - **Imperative Management**: You manually start, stop, and manage containers.
 - **Scaling**: Requires manual intervention or additional tools to scale containers.
-- **Self-Healing**: No built-in self-healing; requires external tools or scripts to handle failures.
+- **Self-Healing**: No built-in self-healing; requires external tools or scripts to handle failures. If restart policy is not set, failed container never comes back.
 - **Updates**: Updating containers often involves stopping the old container and starting a new one, which can lead to downtime.
 
 ## Scaling and Healing in Kubernetes
@@ -44,7 +44,7 @@ spec:
 ```
 
 ### Self-Healing
-Kubernetes ensures that the desired state of the application is maintained. If a pod is deleted or fails, the Deployment controller will automatically create a new pod to replace it, ensuring that the specified number of replicas is always running.
+Kubernetes ensures that the desired state of the application is maintained. If a pod is deleted or fails, the Deployment controller (replicaset) will automatically create a new pod to replace it, ensuring that the specified number of replicas is always running.
 
 ```yaml
 kubectl delete pod <pod-name>
@@ -52,4 +52,4 @@ kubectl delete pod <pod-name>
 
 After deleting a pod, Kubernetes will detect the discrepancy and create a new pod to maintain the desired state.
 
-In summary, Kubernetes Deployments provide a robust way to manage applications, offering features like declarative management, scaling, self-healing, and rolling updates, which are not inherently available in Docker containers.
+In summary, Kubernetes Deployments provide a robust way to manage applications, offering features like **declarative management, scaling, self-healing, and rolling updates**, which are not inherently available in Docker containers.
