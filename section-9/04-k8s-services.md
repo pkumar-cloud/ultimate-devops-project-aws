@@ -8,7 +8,7 @@ A Kubernetes Service is an abstraction that defines a logical set of Pods and a 
 
 In the dynamic environment of Kubernetes, Pods are ephemeral and can be created and destroyed frequently. This makes it challenging to keep track of their IP addresses for communication purposes. Kubernetes Services solve this problem by providing:
 
-1. **Stable Endpoints**: Services provide a consistent IP address and DNS name that remain the same even if the underlying Pods change.
+1. **Stable Endpoints**: Services provide a consistent IP address and DNS name that remain the same even if the underlying Pods change. It identifies pods using **labels & selectors.**
 2. **Load Balancing**: Services can distribute traffic across multiple Pods, ensuring high availability and reliability.
 3. **Service Discovery**: Kubernetes offers built-in service discovery mechanisms. Pods can discover services using environment variables or DNS.
 
