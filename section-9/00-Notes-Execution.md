@@ -1,4 +1,4 @@
-#Deploy the application and access using LB-Type SVC
+# Deploy the application and access using LB-Type SVC
 ```
 kubectl config current-context
 kubectl get all
