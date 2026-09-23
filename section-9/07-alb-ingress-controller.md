@@ -9,7 +9,8 @@ export cluster_name=<demo-cluster-name>
 ```
 
 ```
-oidc_id=$(aws eks describe-cluster --name $cluster_name --query "cluster.identity.oidc.issuer" --output text | cut -d '/' -f 5) #export the eks cluster OIDC id.
+oidc_id=$(aws eks describe-cluster --name $cluster_name --query "cluster.identity.oidc.issuer" --output text | cut -d '/' -f 5)
+#export the eks cluster OIDC id.
 echo $oidc_id
 ```
 
@@ -20,7 +21,8 @@ echo $oidc_id
 If not, run the below command
 
 ```
-eksctl utils associate-iam-oidc-provider --cluster $cluster_name --approve #associate IAM OIDC provider with your cluster. This enables POD's service account to connect to IAM role.
+eksctl utils associate-iam-oidc-provider --cluster $cluster_name --approve
+#associate IAM OIDC provider with your cluster. This enables POD's service account to connect to IAM role.
 ```
 
 ## ALB controller installation:
@@ -41,21 +43,21 @@ aws iam create-policy \
     --policy-document file://iam_policy.json
 ```
 
-**Create IAM Role**
+**Create Service account and assign IAM Role -> IAM Policy**
 
 ```
 eksctl create iamserviceaccount \
-  --cluster=**<your-cluster-name>** \
+  --cluster=<your-cluster-name> \
   --namespace=kube-system \
   --name=aws-load-balancer-controller \
   --role-name AmazonEKSLoadBalancerControllerRole \
-  --attach-policy-arn=arn:aws:iam::**<your-aws-account-id>**:policy/AWSLoadBalancerControllerIAMPolicy \
+  --attach-policy-arn=arn:aws:iam::<your-aws-account-id>:policy/AWSLoadBalancerControllerIAMPolicy \
   --approve
 ```
 
 ### Deploy ALB controller
-
-Add helm repo
+- Install helm (if already not installed) from official site.
+- Add eks helm repo
 
 ```
 helm repo add eks https://aws.github.io/eks-charts
@@ -67,7 +69,7 @@ Update the repo
 helm repo update eks
 ```
 
-Install
+Install ALB controller:
 
 ```
 helm install aws-load-balancer-controller eks/aws-load-balancer-controller \            
@@ -79,10 +81,11 @@ helm install aws-load-balancer-controller eks/aws-load-balancer-controller \
   --set vpcId=<your-vpc-id>
 ```
 
-Verify that the deployments are running.
+Verify that the ALB pods are running:
 
 ```
-kubectl get deployment -n kube-system aws-load-balancer-controller
+kubectl get pods -n kube-system #two pods should be running
+kubectl logs <ALB-pod-name> -n kube-system #verify logs are error free
 ```
 
 You might face the issue, unable to see the loadbalancer address while giving k get ing -n robot-shop at the end. To avoid this your **AWSLoadBalancerControllerIAMPolicy** should have the required permissions for elasticloadbalancing:DescribeListenerAttributes.
