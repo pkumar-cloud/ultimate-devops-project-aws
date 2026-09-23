@@ -28,6 +28,7 @@ eksctl utils associate-iam-oidc-provider --cluster $cluster_name --approve
 ## ALB controller installation:
 1. Create a Policy with permissions related to ELB
 2. Create IAM role and attach that to the service account of Alb controller
+3. Deploy ALB controller
 
 ### Download IAM policy
 - But where will I get the policy? How do I know which permissions are required for the ALB controller? Because ALB controller is provided by AWS. So AWS also provides the policy.JSON
