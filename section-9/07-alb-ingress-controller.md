@@ -1,14 +1,13 @@
-# How to setup alb add on
+# Setup ALB add on
 
 ##  Setup OIDC Connector
+- OIDC in AWS stands for OpenID Connect. In simple terms, it allows AWS to trust an external identity provider and give temporary AWS permissions to an authenticated identity without requiring long-lived AWS access keys.
 
 ### commands to configure IAM OIDC provider 
 
 ```
 export cluster_name=<demo-cluster-name>
-```
 
-```
 oidc_id=$(aws eks describe-cluster --name $cluster_name --query "cluster.identity.oidc.issuer" --output text | cut -d '/' -f 5)
 #export the eks cluster OIDC id.
 echo $oidc_id
@@ -16,7 +15,9 @@ echo $oidc_id
 
 #### Check if there is an IAM OIDC provider configured already
 
-- aws iam list-open-id-connect-providers | grep $oidc_id | cut -d "/" -f4\n 
+```
+aws iam list-open-id-connect-providers | grep $oidc_id | cut -d "/" -f4\n
+```
 
 If not, run the below command
 
@@ -26,9 +27,10 @@ eksctl utils associate-iam-oidc-provider --cluster $cluster_name --approve
 ```
 
 ## ALB controller installation:
-1. Create a Policy with permissions related to ELB
-2. Create IAM role and attach that to the service account of Alb controller
-3. Deploy ALB controller
+- Three step process
+    1. Create a Policy with permissions related to ELB
+    2. Create IAM role and attach that to the service account of Alb controller
+    3. Deploy ALB controller
 
 ### Download IAM policy
 - But where will I get the policy? How do I know which permissions are required for the ALB controller? Because ALB controller is provided by AWS. So AWS also provides the policy.JSON
@@ -59,19 +61,16 @@ eksctl create iamserviceaccount \
 ### Deploy ALB controller
 - Install helm (if already not installed) from official site.
 - Add eks helm repo
-
 ```
 helm repo add eks https://aws.github.io/eks-charts
 ```
 
 Update the repo
-
 ```
 helm repo update eks
 ```
 
 Install ALB controller:
-
 ```
 helm install aws-load-balancer-controller eks/aws-load-balancer-controller \            
   -n kube-system \
