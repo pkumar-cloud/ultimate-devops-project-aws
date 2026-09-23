@@ -8,7 +8,7 @@ metadata:
 spec:
   ingressClassName: alb #defines this ingress resource will be read by only ALB controller
   rules:
-    - host: example.com
+    - host: example.com #change to your domain: www.<DomainName>
       http:
         paths:
           - path: "/"
