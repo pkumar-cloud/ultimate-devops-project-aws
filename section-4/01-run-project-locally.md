@@ -9,7 +9,10 @@ http://<publicIP>:8080
 ```
 
 # Resize FS on ubuntu:
-`sudo apt install cloud-guest-utils
+```
+sudo apt install cloud-guest-utils
 sudo growpart /dev/xvda 1
 lsblk, df-h
-sudo resize2fs /dev/xvda1, df -h #resize the file sys`
+sudo resize2fs /dev/xvda1 #resize the file sys
+df -h
+```
